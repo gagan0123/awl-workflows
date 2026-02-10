@@ -2,7 +2,8 @@
   "meta": {
     "id": "wf_61038ec6-1a59-458f-babf-075297c209c9",
     "name": "Translator",
-    "savedAt": "2026-02-04T09:53:54.726Z",
+    "sanitizedName": "Translator",
+    "savedAt": "2026-02-10T20:39:58.364Z",
     "allowedDomains": [
       "wikipedia.org"
     ],
@@ -106,8 +107,8 @@
         "label": "domReplacement",
         "ui": {
           "position": {
-            "x": 518,
-            "y": 321
+            "x": 522.1842309990512,
+            "y": 332.15794933080326
           }
         }
       }
