@@ -4,9 +4,11 @@
     "name": "I’m feeling lucky!",
     "sanitizedName": "I_m_feeling_lucky_",
     "description": "Injects Google logos into the current page. WARNING: Resets DOM state (forms, video, etc).",
-    "savedAt": "2026-02-10T20:33:52.329Z",
-    "allowedDomains": [],
-    "isWebMCP": false,
+    "savedAt": "2026-02-10T20:35:08.425Z",
+    "allowedDomains": [
+      "example.com"
+    ],
+    "isWebMCP": true,
     "enabled": true,
     "autosave": true
   },
