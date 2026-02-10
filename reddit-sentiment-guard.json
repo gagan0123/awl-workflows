@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "allowedDomains": [
+      "reddit.com"
+    ],
+    "autosave": true,
+    "description": "Censors negative comments with a reason, but allows clicking to reveal.",
+    "enabled": true,
+    "id": "wf_490ad13e-bfe5-41d3-86ce-5bd61cbfc51a",
+    "isWebMCP": true,
+    "name": "Reddit Sentiment Guard (Reasoned + Reveal)",
+    "sanitizedName": "Reddit_Sentiment_Guard__Reasoned___Reveal_",
+    "savedAt": "2026-02-10T20:24:35.224Z"
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "config": {
+          "description": "Start",
+          "title": "Start"
+        },
+        "label": "start",
+        "ui": {
+          "position": {
+            "x": -2.4540568859635385,
+            "y": 81.21804291783849
+          }
+        }
+      },
+      {
+        "id": "input_nodes",
+        "type": "domInput",
+        "config": {
+          "cssSelector": "shreddit-comment div.scalable-text",
+          "defaultValue": "",
+          "description": "Selects all comment bodies",
+          "extract": "innerHTML",
+          "isMultiple": true,
+          "title": "Fetch Comments"
+        },
+        "label": "domInput",
+        "ui": {
+          "position": {
+            "x": 50,
+            "y": 144
+          }
+        }
+      },
+      {
+        "id": "loop_1",
+        "type": "loop",
+        "config": {
+          "title": "Loop Comments"
+        },
+        "label": "loop",
+        "ui": {
+          "position": {
+            "x": 51.0000000000002,
+            "y": 320.9999999999999
+          }
+        }
+      },
+      {
+        "id": "sentiment_filter",
+        "type": "promptApi",
+        "config": {
+          "context": "You are a moderation bot. Analyze the input HTML/Text.\n\nIF NEGATIVE/TOXIC (rude, hate speech, angry, trolling):\nReturn this HTML structure exactly, replacing brackets:\n<details style='background:#fef2f2; border:1px solid #ef4444; border-radius:4px; padding:4px; margin-bottom:4px;'>\n<summary style='cursor:pointer; color:#b91c1c; font-weight:bold;'>🚫 Blocked: [REASON] (Click to reveal)</summary>\n<div style='margin-top:8px; padding:8px; border-top:1px solid #ffdcd6; color:#555;'>[ORIGINAL_TEXT]</div>\n</details>\n\n- Replace [REASON] with a short 2-3 word reason (e.g. 'Insult', 'Hostile Tone').\n- Replace [ORIGINAL_TEXT] with the exact input text.\n\nIF POSITIVE OR NEUTRAL:\nReturn the input text EXACTLY as is, do not change a single character.",
+          "expectedInputsLanguages": [
+            "en"
+          ],
+          "expectedOutputsLanguages": [
+            "en"
+          ],
+          "initialPrompts": [],
+          "temperature": 0.2,
+          "title": "Filter Toxic",
+          "topK": 1
+        },
+        "label": "promptApi",
+        "ui": {
+          "position": {
+            "x": 53.00000000000048,
+            "y": 483.9999999999997
+          }
+        }
+      },
+      {
+        "id": "replace_dom",
+        "type": "domReplacement",
+        "config": {
+          "description": "Updates comment with filter result",
+          "mode": "innerHTML",
+          "selector": "shreddit-comment div.scalable-text",
+          "title": "Update UI"
+        },
+        "label": "domReplacement",
+        "ui": {
+          "position": {
+            "x": 53.00000000000077,
+            "y": 644.9999999999995
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "config": {
+          "description": "End",
+          "title": "End"
+        },
+        "label": "end",
+        "ui": {
+          "position": {
+            "x": 12.170866915951656,
+            "y": 825.1682038373405
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "start",
+        "target": "input_nodes",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "e2",
+        "source": "input_nodes",
+        "target": "loop_1",
+        "sourceHandle": null,
+        "targetHandle": "in"
+      },
+      {
+        "id": "e3",
+        "source": "loop_1",
+        "target": "sentiment_filter",
+        "sourceHandle": "item",
+        "targetHandle": null
+      },
+      {
+        "id": "e4",
+        "source": "sentiment_filter",
+        "target": "replace_dom",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "e5",
+        "source": "replace_dom",
+        "target": "end",
+        "sourceHandle": null,
+        "targetHandle": null
+      }
+    ]
+  }
+}
