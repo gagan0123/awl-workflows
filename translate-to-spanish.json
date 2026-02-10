@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "id": "wf_61038ec6-1a59-458f-babf-075297c209c9",
+    "name": "Translator",
+    "savedAt": "2026-02-04T09:53:54.726Z",
+    "allowedDomains": [
+      "wikipedia.org"
+    ],
+    "description": "Translates the given wikipedia page from English to Spanish",
+    "isWebMCP": true,
+    "enabled": true
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "96ff9f63-005d-4e2d-aa9d-ae6481cb4c1fstart",
+        "type": "start",
+        "config": {
+          "description": "Workflow entry point.",
+          "title": "Start"
+        },
+        "label": "start",
+        "ui": {
+          "position": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      },
+      {
+        "id": "f075711a-199d-4cee-b603-af317ee360b2end",
+        "type": "end",
+        "config": {
+          "description": "Workflow exit point.",
+          "title": "End"
+        },
+        "label": "end",
+        "ui": {
+          "position": {
+            "x": 849,
+            "y": 212
+          }
+        }
+      },
+      {
+        "id": "e9e9ce8d-563a-4ed2-a723-674cf76d6e5d",
+        "type": "domInput",
+        "config": {
+          "cssSelector": "p",
+          "defaultValue": "",
+          "description": "Extract text from a website using a CSS selector.",
+          "extract": "innerHTML",
+          "isMultiple": true,
+          "title": "DOM Input"
+        },
+        "label": "domInput",
+        "ui": {
+          "position": {
+            "x": 55,
+            "y": 140
+          }
+        }
+      },
+      {
+        "id": "4907fd47-64b0-4af4-baa7-4911fd07134e",
+        "type": "loop",
+        "config": {
+          "description": "Iterate over an array of items.",
+          "title": "Loop"
+        },
+        "label": "loop",
+        "ui": {
+          "position": {
+            "x": 449,
+            "y": 149
+          }
+        }
+      },
+      {
+        "id": "7b3afd5d-7e99-4393-9fb4-e9faac48bda0",
+        "type": "translatorApi",
+        "config": {
+          "context": "A helpful assistant that translates content into a different language.",
+          "sourceLanguage": "en",
+          "targetLanguage": "es",
+          "title": "Translator"
+        },
+        "label": "translatorApi",
+        "ui": {
+          "position": {
+            "x": 123,
+            "y": 343
+          }
+        }
+      },
+      {
+        "id": "9233f9c5-0254-4d79-a9bf-a82b476ed617",
+        "type": "domReplacement",
+        "config": {
+          "description": "Replace content of an element on the page.",
+          "isMultiple": false,
+          "mode": "innerHTML",
+          "selector": "p",
+          "title": "DOM Replacement"
+        },
+        "label": "domReplacement",
+        "ui": {
+          "position": {
+            "x": 518,
+            "y": 321
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "xy-edge__96ff9f63-005d-4e2d-aa9d-ae6481cb4c1fstart-e9e9ce8d-563a-4ed2-a723-674cf76d6e5d",
+        "source": "96ff9f63-005d-4e2d-aa9d-ae6481cb4c1fstart",
+        "target": "e9e9ce8d-563a-4ed2-a723-674cf76d6e5d",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "xy-edge__e9e9ce8d-563a-4ed2-a723-674cf76d6e5d-4907fd47-64b0-4af4-baa7-4911fd07134ein",
+        "source": "e9e9ce8d-563a-4ed2-a723-674cf76d6e5d",
+        "target": "4907fd47-64b0-4af4-baa7-4911fd07134e",
+        "sourceHandle": null,
+        "targetHandle": "in"
+      },
+      {
+        "id": "xy-edge__4907fd47-64b0-4af4-baa7-4911fd07134eitem-7b3afd5d-7e99-4393-9fb4-e9faac48bda0",
+        "source": "4907fd47-64b0-4af4-baa7-4911fd07134e",
+        "target": "7b3afd5d-7e99-4393-9fb4-e9faac48bda0",
+        "sourceHandle": "item",
+        "targetHandle": null
+      },
+      {
+        "id": "xy-edge__7b3afd5d-7e99-4393-9fb4-e9faac48bda0-9233f9c5-0254-4d79-a9bf-a82b476ed617",
+        "source": "7b3afd5d-7e99-4393-9fb4-e9faac48bda0",
+        "target": "9233f9c5-0254-4d79-a9bf-a82b476ed617",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "xy-edge__4907fd47-64b0-4af4-baa7-4911fd07134edone-f075711a-199d-4cee-b603-af317ee360b2end",
+        "source": "4907fd47-64b0-4af4-baa7-4911fd07134e",
+        "target": "f075711a-199d-4cee-b603-af317ee360b2end",
+        "sourceHandle": "done",
+        "targetHandle": null
+      }
+    ]
+  }
+}
