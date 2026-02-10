@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "id": "wf_6af654cf-4b1e-4ed6-8bc1-caa20899e459",
+    "name": "Quick Summarizer",
+    "sanitizedName": "Built_in__Quick_Summarizer",
+    "description": "Summarizes the current page into key points.",
+    "savedAt": "2026-02-10T21:52:15.524Z",
+    "allowedDomains": [
+      "<all_urls>"
+    ],
+    "isWebMCP": true,
+    "autosave": true
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start",
+        "config": {
+          "title": "Start"
+        },
+        "label": "start",
+        "ui": {
+          "position": {
+            "x": 21,
+            "y": 47
+          }
+        }
+      },
+      {
+        "id": "dom-input",
+        "type": "domInput",
+        "config": {
+          "title": "Get Content",
+          "cssSelector": "body",
+          "extract": "innerText",
+          "defaultValue": ""
+        },
+        "label": "domInput",
+        "ui": {
+          "position": {
+            "x": 52,
+            "y": 153
+          }
+        }
+      },
+      {
+        "id": "summarizer",
+        "type": "summarizerApi",
+        "config": {
+          "title": "Summarize",
+          "type": "key-points",
+          "format": "markdown",
+          "length": "medium",
+          "outputLanguage": "en",
+          "context": "Summarize the following content into key points.",
+          "expectedInputLanguages": [
+            "en"
+          ]
+        },
+        "label": "summarizerApi",
+        "ui": {
+          "position": {
+            "x": 286,
+            "y": 394
+          }
+        }
+      },
+      {
+        "id": "alert",
+        "type": "alertNotification",
+        "config": {
+          "title": "Summary",
+          "useCustomMessage": false
+        },
+        "label": "alertNotification",
+        "ui": {
+          "position": {
+            "x": 566,
+            "y": 128
+          }
+        }
+      },
+      {
+        "id": "end",
+        "type": "end",
+        "config": {
+          "title": "End"
+        },
+        "label": "end",
+        "ui": {
+          "position": {
+            "x": 752,
+            "y": 441
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1-2",
+        "source": "start",
+        "target": "dom-input",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "e2-3",
+        "source": "dom-input",
+        "target": "summarizer",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "e3-4",
+        "source": "summarizer",
+        "target": "alert",
+        "sourceHandle": null,
+        "targetHandle": null
+      },
+      {
+        "id": "e4-5",
+        "source": "alert",
+        "target": "end",
+        "sourceHandle": null,
+        "targetHandle": null
+      }
+    ]
+  }
+}
